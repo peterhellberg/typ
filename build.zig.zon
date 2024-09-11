@@ -1,6 +1,6 @@
 .{
     .name = "typ",
-    .version = "0.0.4",
+    .version = "0.0.5",
     .dependencies = .{},
     .paths = .{
         "build.zig",
