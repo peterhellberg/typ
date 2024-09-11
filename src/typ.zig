@@ -16,6 +16,19 @@ pub fn err(msg: []const u8) i32 {
     return 1;
 }
 
+/// Send a formatted message to the WebAssembly host.
+///
+/// If unable to `allocPrint` then return 1, else 0.
+/// _________________________________________________
+pub fn fmt(comptime format: []const u8, args: anytype) i32 {
+    const str = std.fmt.allocPrint(hpa, format, args) catch return err(
+        "unable to allocate for fmt",
+    );
+    defer hpa.free(str);
+
+    return ok(str);
+}
+
 /// Send the provided message to the WebAssembly host.
 /// __________________________________________________
 pub fn send(msg: []const u8) void {
