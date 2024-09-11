@@ -1,12 +1,14 @@
+//! typ 🖨️
+
 const std = @import("std");
 
-/// Send the provided message to the WebAssembly host, and returns 0.
+/// Send the provided message to the WebAssembly host, and return 0.
 pub fn ok(msg: []const u8) i32 {
     send(msg);
     return 0;
 }
 
-/// Send the provided message to the WebAssembly host, and returns 1.
+/// Send the provided message to the WebAssembly host, and return 1.
 pub fn err(msg: []const u8) i32 {
     send(msg);
     return 1;
@@ -17,7 +19,7 @@ pub fn send(msg: []const u8) void {
     wasm_minimal_protocol_send_result_to_host(msg.ptr, msg.len);
 }
 
-/// Write input arguments into the buffer pointed to by ptr.
+/// Write input arguments into the buffer pointed to by `ptr`.
 pub fn in(ptr: [*]u8) void {
     wasm_minimal_protocol_write_args_to_buffer(ptr);
 }
@@ -34,7 +36,7 @@ pub fn alloc(comptime T: type, n: usize) ![]T {
     return hpa.alloc(T, n);
 }
 
-/// Free an array allocated with `alloc`.
+/// Free a slice allocated with `alloc`.
 pub fn free(memory: anytype) void {
     hpa.free(memory);
 }
