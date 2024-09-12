@@ -29,7 +29,7 @@ as well as the [Typst CLI](https://github.com/typst/typst?tab=readme-ov-file#ins
 Use `zig fetch` to add a `.typ` to the `.dependencies` in your `build.zig.zon`
 
 ```console
-zig fetch --save https://github.com/peterhellberg/typ/archive/refs/tags/v0.0.8.tar.gz
+zig fetch --save https://github.com/peterhellberg/typ/archive/refs/tags/v0.0.9.tar.gz
 ```
 
 > [!NOTE]
