@@ -5,7 +5,7 @@ const std = @import("std");
 /// Send a message to the WebAssembly host.
 ///
 /// Return 0.
-/// ________________________________________________________________
+/// __________________________________________________________
 pub fn str(msg: []const u8) i32 {
     return send(msg, 0);
 }
@@ -13,7 +13,7 @@ pub fn str(msg: []const u8) i32 {
 /// Send a formatted message to the WebAssembly host.
 ///
 /// Return 1 if unable to `allocPrint`, else 0.
-/// _________________________________________________
+/// __________________________________________________________
 pub fn strf(comptime format: []const u8, args: anytype) i32 {
     const msg = allocPrint(format, args) catch {
         return err("strf: failed fmt");
@@ -26,7 +26,7 @@ pub fn strf(comptime format: []const u8, args: anytype) i32 {
 /// Send a error message to the WebAssembly host.
 ///
 /// Return 1.
-/// _____________________________________________
+/// __________________________________________________________
 pub fn err(msg: []const u8) i32 {
     return send(msg, 1);
 }
@@ -34,7 +34,7 @@ pub fn err(msg: []const u8) i32 {
 /// Send a formatted error message to the WebAssembly host.
 ///
 /// Return 1.
-/// ________________________________________________________
+/// __________________________________________________________
 pub fn errf(comptime format: []const u8, args: anytype) i32 {
     const msg = allocPrint(format, args) catch {
         return err("errf: failed fmt");
@@ -47,7 +47,7 @@ pub fn errf(comptime format: []const u8, args: anytype) i32 {
 /// Parse arguments into an array of [C]T
 ///
 /// Requires `comptime` number of arguments.
-/// ________________________________________
+/// __________________________________________________________
 pub fn parse(comptime C: usize, T: type, ns: [C]usize) ![C]T {
     var n: usize = 0;
 
@@ -88,7 +88,7 @@ pub fn parse(comptime C: usize, T: type, ns: [C]usize) ![C]T {
 /// Send the provided message to the WebAssembly host.
 ///
 /// Return `exit_code`.
-/// __________________________________________________
+/// __________________________________________________________
 pub fn send(msg: []const u8, exit_code: i32) i32 {
     wasm_minimal_protocol_send_result_to_host(msg.ptr, msg.len);
 
@@ -109,7 +109,7 @@ const hpa = std.heap.page_allocator;
 /// Allocate using a `std.heap.page_allocator`.
 ///
 /// Call `free` with the result to free the memory.
-/// _______________________________________________
+/// __________________________________________________________
 pub fn alloc(comptime T: type, n: usize) ![]T {
     return hpa.alloc(T, n);
 }
@@ -118,7 +118,7 @@ pub fn alloc(comptime T: type, n: usize) ![]T {
 /// using a `std.heap.page_allocator`.
 ///
 /// You likely want to use `strf` or `errf` instead.
-/// ______________________________________________________
+/// __________________________________________________________
 pub fn allocPrint(comptime format: []const u8, args: anytype) ![]u8 {
     const msg = try std.fmt.allocPrint(hpa, format, args);
 
@@ -126,7 +126,7 @@ pub fn allocPrint(comptime format: []const u8, args: anytype) ![]u8 {
 }
 
 /// Free a slice allocated with `alloc`.
-/// ____________________________________
+/// __________________________________________________________
 pub fn free(memory: anytype) void {
     hpa.free(memory);
 }
