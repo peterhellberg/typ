@@ -2,6 +2,10 @@
 
 const std = @import("std");
 
+/// You likely want to use `str` or `strf` instead.
+/// __________________________________________________________
+pub const ok = str;
+
 /// Send a message to the WebAssembly host.
 ///
 /// Return 0.
