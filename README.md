@@ -70,7 +70,7 @@ const typ = @import("typ");
 export fn hello() i32 {
     const msg = "*Hello* from `hello.wasm` written in Zig!";
 
-    return typ.ok(msg);
+    return typ.str(msg);
 }
 
 export fn echo(len: usize) i32 {
