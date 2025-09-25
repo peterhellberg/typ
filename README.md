@@ -47,10 +47,12 @@ pub fn build(b: *std.Build) void {
 
     const hello = b.addExecutable(.{
         .name = "hello",
-        .root_source_file = b.path("hello.zig"),
-        .strip = true,
-        .target = target,
-        .optimize = .ReleaseSmall,
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("hello.zig"),
+            .strip = true,
+            .target = target,
+            .optimize = .ReleaseSmall,
+        }),
     });
 
     const typ = b.dependency("typ", .{}).module("typ");
@@ -77,7 +79,7 @@ export fn echo(len: usize) i32 {
     var res = typ.alloc(u8, len * 2) catch return 1;
     defer typ.free(res);
 
-    typ.in(res.ptr);
+    typ.write(res.ptr);
 
     for (0..len) |i| {
         res[i + len] = res[i];
